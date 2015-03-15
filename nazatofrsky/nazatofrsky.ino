@@ -63,7 +63,7 @@ void loop()
         gps_fixtype = NazaDecoder.getFixType();                               // 0 = No GPS, 1 =No Fix, 2 = 2D Fix, 3 = 3D Fix  
         sat_visible =  NazaDecoder.getNumSat();          // numbers of visible satelites
         gps_status = (sat_visible*10) + gps_fixtype; 
-        if(gps_fixtype == 3)  {
+        if(gps_fixtype >= 3)  {
           latitude = NazaDecoder.getLat();
           longitude = NazaDecoder.getLon();
           gps_altitude = NazaDecoder.getAlt();    // 1m =1000
@@ -81,7 +81,7 @@ void loop()
   // DBEUG
 if((timer == DEBUG_Timer) && DEBUG)
 {
- if(gps_fixtype == 3 )
+ if(gps_fixtype >= 3 )
  {
   ConsoleSerial.print("Lat: "); ConsoleSerial.print(latitude, 7);
   ConsoleSerial.print(", Lon: "); ConsoleSerial.print(longitude, 7);
