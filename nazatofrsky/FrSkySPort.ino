@@ -80,7 +80,7 @@ void FrSkySPort_Process(void) {
              
               switch(FR_ID_count) {
                  case 0:
-                   if(gps_fixtype==3) {
+                   if(gps_fixtype>=3) {
                      FrSkySPort_SendPackage(FR_ID_SPEED,groundspeed *20 );  // from GPS converted to km/h
                     }
                    break;
@@ -94,7 +94,7 @@ void FrSkySPort_Process(void) {
                   FrSkySPort_SendPackage(FR_ID_ALTITUDE,bar_altitude);   // from barometer, 100 = 1m
                   break;       
                 case 4:        // Sends the longitude value, setting bit 31 high
-                   if(gps_fixtype==3) {
+                   if(gps_fixtype>=3) {
                        longitude2 = longitude*10000000;
                        if(longitude2 < 0)
                            latlong=((abs(longitude2)/100)*6)  | 0xC0000000;
@@ -104,7 +104,7 @@ void FrSkySPort_Process(void) {
                        }
                    break;
                  case 5:        // Sends the latitude value, setting bit 31 low  
-                     if(gps_fixtype==3) {
+                     if(gps_fixtype>=3) {
                          latitude2 = latitude*10000000;
                          if(latitude2 < 0 )
                              latlong=((abs(latitude2)/100)*6) | 0x40000000;
@@ -159,7 +159,7 @@ void FrSkySPort_Process(void) {
                    FrSkySPort_SendPackage(FR_ID_VARIO,climb_rate );       // 100 = 1m/s        
                    break;
                case 18:
-                   if(gps_fixtype==3) {
+                   if(gps_fixtype>=3) {
                        gps_altitude2 = gps_altitude*100;
                        FrSkySPort_SendPackage(FR_ID_GPS_ALT,gps_altitude2);   // from GPS,  100=1m
                      }
